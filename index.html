@@ -5,6 +5,7 @@
     <title>Document</title>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"
         integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
 </head>
 <style>
     body {
@@ -14,9 +15,10 @@
         padding: 100px;
     }
 
-    img {
-        height: 400px;
-    }
+    /* img {
+        height: 300px;
+        width: 500px;
+    } */
 
     textarea {
         width: 300px;
@@ -56,8 +58,8 @@
     <img src="mask.jpg" class="js-img-mask" />
     <img src="pen.jpg" class="js-img-pen" />
     <img src="pic.png" class="js-img-pic" />
-    <img src="note1.jpg" class="js-img-noteup" />
-    <img src="note2.jpg" class="js-img-noteside" />
+    <img src="note1.jpg" class="js-img-noteside" />
+    <img src="note2.jpg" class="js-img-noteup" />
     <h1 class="js-result"></h1>
     <button class="js-start"><strong>抽！</strong></button>
 
@@ -73,19 +75,51 @@
         $('.js-start').on('click', function () {
             var options = [
                 "CHC GROUP logo 筆",
+                "CHC GROUP logo 筆",
+                "CHC GROUP logo 筆",
+                "CHC GROUP logo 筆",
+                "CHC GROUP logo 筆",
+                "CHC GROUP logo 筆",
+                "CHC GROUP logo 筆",
+                "CHC GROUP logo 筆",
+                "CHC GROUP logo 筆",
+                "CHC GROUP logo 筆",
+                "CHC GROUP logo 口罩",
+                "CHC GROUP logo 口罩",
+                "CHC GROUP logo 口罩",
+                "CHC GROUP logo 口罩",
+                "CHC GROUP logo 口罩",
+                "CHC GROUP logo 口罩",
+                "CHC GROUP logo 口罩",
+                "CHC GROUP logo 口罩",
+                "CHC GROUP logo 口罩",
                 "CHC GROUP logo 口罩",
                 "便利貼筆記本(上開)",
+                "便利貼筆記本(上開)",
+                "便利貼筆記本(上開)",
+                "便利貼筆記本(上開)",
+                "便利貼筆記本(上開)",
                 "便利貼筆記本(側開)",
-                "拍貼機拍照 * 1",
+                "便利貼筆記本(側開)",
+                "便利貼筆記本(側開)",
+                "便利貼筆記本(側開)",
+                "便利貼筆記本(側開)",
+                "拍貼機拍照一次",
             ];
             var rand = Math.floor(Math.random() * options.length);
 
             $('.js-img-shake').show();
             $('.js-img-big').hide();
+            $('.js-img-mask').hide();
+            $('.js-img-pen').hide();
+            $('.js-img-pic').hide();
+            $('.js-img-noteup').hide();
+            $('.js-img-noteside').hide();
             $('.js-result').text('等待開獎結果...');
             var prize = options[rand];
             setTimeout(function () {
-                if(prize == "CHC GROUP logo 筆"){
+
+                if (prize == "CHC GROUP logo 筆") {
                     $('.js-img-shake').hide();
                     // prize
                     $('.js-img-pic').hide();
@@ -94,11 +128,50 @@
                     $('.js-img-mask').hide();
                     $('.js-img-pen').show();
                     $('.js-result').text('開獎結果：' + prize);
-                }else{
+                    $('.js-start').hide();
+                } else if (prize == "CHC GROUP logo 口罩") {
                     $('.js-img-shake').hide();
-                    $('.js-img-homepage').show();
-                    $('.js-img-big').hide();
+                    // prize
+                    $('.js-img-pic').hide();
+                    $('.js-img-noteup').hide();
+                    $('.js-img-noteside').hide();
+                    $('.js-img-mask').show();
+                    $('.js-img-pen').hide();
                     $('.js-result').text('開獎結果：' + prize);
+                    $('.js-start').hide();
+                }
+                else if (prize == "拍貼機拍照一次") {
+                    $('.js-img-shake').hide();
+                    // prize
+                    $('.js-img-pic').show();
+                    $('.js-img-noteup').hide();
+                    $('.js-img-noteside').hide();
+                    $('.js-img-mask').hide();
+                    $('.js-img-pen').hide();
+                    $('.js-result').text('開獎結果：' + prize);
+                    $('.js-start').hide();
+                }
+                else if (prize == "便利貼筆記本(上開)") {
+                    $('.js-img-shake').hide();
+                    // prize
+                    $('.js-img-pic').hide();
+                    $('.js-img-noteup').show();
+                    $('.js-img-noteside').hide();
+                    $('.js-img-mask').hide();
+                    $('.js-img-pen').hide();
+                    $('.js-result').text('開獎結果：' + prize);
+                    $('.js-start').hide();
+                }
+                else {
+                    $('.js-img-shake').hide();
+                    // prize
+                    $('.js-img-pic').hide();
+                    $('.js-img-noteup').hide();
+                    $('.js-img-noteside').show();
+                    $('.js-img-mask').hide();
+                    $('.js-img-pen').hide();
+                    $('.js-result').text('開獎結果：' + prize);
+                    $('.js-start').hide();
                 }
             }, 1000);
         });
