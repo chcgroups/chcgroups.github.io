@@ -6,14 +6,18 @@
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"
         integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <link rel="stylesheet" type="text/css" href="styles/core.css" />
+    <link rel="stylesheet" type="text/css" href="styles/icon-font.min.css" />
+    <link rel="stylesheet" type="text/css" href="styles/style.css" />
 </head>
 <style>
-    body {
+    /* body {
+        background: url(homepage.png);
         background-repeat: no-repeat;
-        background-size: 100%;
+        background-size: auto;
         text-align: center;
-        padding: 100px;
-    }
+        padding: 400px;
+    } */
 
     /* img {
         height: 300px;
@@ -52,16 +56,29 @@
     }
 </style>
 
-<body background="homepage.png">
-    <img src="shake.gif" class="js-img-shake" />
-    <!-- prize -->
-    <img src="mask.jpg" class="js-img-mask" />
-    <img src="pen.jpg" class="js-img-pen" />
-    <img src="pic.png" class="js-img-pic" />
-    <img src="note1.jpg" class="js-img-noteside" />
-    <img src="note2.jpg" class="js-img-noteup" />
-    <h1 class="js-result"></h1>
-    <button class="js-start"><strong>抽！</strong></button>
+<body class="login-page">
+    <div class="login-wrap d-flex align-items-center flex-wrap justify-content-center">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-6 col-lg-7">
+                    <img src="homepage.png" />
+                </div>
+                <div class="col-md-6 col-lg-5">
+                    <div class="login-box bg-white box-shadow border-radius-10">
+                        <img src="shake.gif" class="js-img-shake" />
+                        <!-- prize -->
+                        <img src="mask.jpg" class="js-img-mask" height="500px" width="800px" />
+                        <img src="pen.jpg" class="js-img-pen" height="300px" width="800px" />
+                        <img src="pic.png" class="js-img-pic" height="500px" width="800px" />
+                        <img src="note1.jpg" class="js-img-noteside" height="500px" width="800px" />
+                        <img src="note2.jpg" class="js-img-noteup" height="500px" width="800px" />
+                        <button class="js-start"><strong>抽！</strong></button>
+                        <h3 class="js-result"></h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <script>
         $('.js-img-shake').hide();
@@ -73,6 +90,7 @@
         $('.js-img-noteside').hide();
 
         $('.js-start').on('click', function () {
+            $('.js-start').hide();
             var options = [
                 "CHC GROUP logo 筆",
                 "CHC GROUP logo 筆",
