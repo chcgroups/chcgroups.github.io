@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+</head>
+<style>
+    body {
+        background-repeat: no-repeat;
+        background-size: 100%;
+        text-align: center;
+        padding: 100px;
+    }
+
+    img {
+        height: 400px;
+    }
+
+    textarea {
+        width: 300px;
+        padding: 10px;
+        font-size: 16px;
+        border: 2px solid #ddd;
+        border-radius: 5px;
+        margin: 5px auto;
+        display: block;
+    }
+
+    button {
+        display: block;
+        width: 324px;
+        padding: 10px;
+        border-width: 0px;
+        border-radius: 5px;
+        margin: 5px auto;
+        font-size: 16px;
+        background-color: #dc3545;
+        color: #fff;
+        cursor: pointer;
+    }
+
+    button:hover {
+        background-color: #a02732;
+    }
+
+    button:active {
+        background-color: #dc3545;
+    }
+</style>
+
+<body background="homepage.png">
+    <img src="shake.gif" class="js-img-shake" />
+    <!-- prize -->
+    <img src="mask.jpg" class="js-img-mask" />
+    <img src="pen.jpg" class="js-img-pen" />
+    <img src="pic.png" class="js-img-pic" />
+    <img src="note1.jpg" class="js-img-noteup" />
+    <img src="note2.jpg" class="js-img-noteside" />
+    <h1 class="js-result"></h1>
+    <button class="js-start"><strong>抽！</strong></button>
+
+    <script>
+        $('.js-img-shake').hide();
+        // prize
+        $('.js-img-mask').hide();
+        $('.js-img-pen').hide();
+        $('.js-img-pic').hide();
+        $('.js-img-noteup').hide();
+        $('.js-img-noteside').hide();
+
+        $('.js-start').on('click', function () {
+            var options = [
+                "CHC GROUP logo 筆",
+                "CHC GROUP logo 口罩",
+                "便利貼筆記本(上開)",
+                "便利貼筆記本(側開)",
+                "拍貼機拍照 * 1",
+            ];
+            var rand = Math.floor(Math.random() * options.length);
+
+            $('.js-img-shake').show();
+            $('.js-img-big').hide();
+            $('.js-result').text('等待開獎結果...');
+            var prize = options[rand];
+            setTimeout(function () {
+                if(prize == "CHC GROUP logo 筆"){
+                    $('.js-img-shake').hide();
+                    // prize
+                    $('.js-img-pic').hide();
+                    $('.js-img-noteup').hide();
+                    $('.js-img-noteside').hide();
+                    $('.js-img-mask').hide();
+                    $('.js-img-pen').show();
+                    $('.js-result').text('開獎結果：' + prize);
+                }else{
+                    $('.js-img-shake').hide();
+                    $('.js-img-homepage').show();
+                    $('.js-img-big').hide();
+                    $('.js-result').text('開獎結果：' + prize);
+                }
+            }, 1000);
+        });
+    </script>
+
+</body>
+
+</html>
