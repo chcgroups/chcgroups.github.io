@@ -132,8 +132,7 @@
                 { name: "追求生活美好大禮包", probability: 12, count: 0 }
             ];
         
-            // Total number of simulations
-            var totalSimulations = 100;
+            var totalSimulations = 10000;
         
             for (var i = 0; i < totalSimulations; i++) {
                 var rand = Math.random() * 100;
@@ -147,7 +146,6 @@
                 }
             }
         
-            // Output results
             console.log("Simulation results over " + totalSimulations + " draws:");
             prizes.forEach(function(prize) {
                 console.log(prize.name + ": " + prize.count + " (" + (prize.count / totalSimulations * 100).toFixed(2) + "%)");
