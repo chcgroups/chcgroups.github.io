@@ -33,8 +33,8 @@
         background-color: #dc3545;
     }
 
-    .word{
-        text-align:center;
+    .word {
+        text-align: center;
     }
 </style>
 
@@ -49,16 +49,11 @@
                     <div class="login-box bg-white box-shadow border-radius-10 word">
                         <h3 class="js-result"></h3>
                         <img src="loading.gif" class="js-img-shake" />
-                        <!-- prize -->
-                        <!-- <img src="mask.jpg" class="js-img-mask" height="500px" width="800px" />
                         <img src="pen.jpg" class="js-img-pen" height="300px" width="800px" />
-                        <img src="pic.png" class="js-img-pic" height="300px" width="100px" />
-                        <img src="note1.jpg" class="js-img-noteside" height="500px" width="800px" />
-                        <img src="note2.jpg" class="js-img-noteup" height="500px" width="800px" /> -->
-                        <img src="pen.jpg" class="js-img-pen" height="300px" width="800px" />
-                        <img src="notebook1.png" class="js-img-noteside" height="300px" width="100px" />
+                        <img src="notebook1.jpg" class="js-img-noteside" height="500px" width="800px" />
                         <img src="notebook2.jpg" class="js-img-noteup" height="500px" width="800px" />
                         <img src="bag.jpg" class="js-img-bag" height="500px" width="800px" />
+                        <img src="big.jpg" class="js-img-big" height="500px" width="800px" />
                         <button class="js-start"><strong>抽！</strong></button>
 
                     </div>
@@ -68,29 +63,34 @@
     </div>
 
     <script>
-        $('.js-loading').hide();
         $('.js-img-shake').hide();
-        // prize
+        $('.js-img-big').hide();
         $('.js-img-pen').hide();
         $('.js-img-bag').hide();
         $('.js-img-noteup').hide();
         $('.js-img-noteside').hide();
-
         $('.js-start').on('click', function () {
             $('.js-start').hide();
-            var options = [
-                "CHC GROUP logo 筆",
-                "CHC GROUP logo 筆",
-                "CHC GROUP logo 筆",
-                "CHC LOGO 環保袋",
-                "CHC LOGO 環保袋",
-                "CHC LOGO 環保袋",
-                "便利貼筆記本(上開)",
-                "便利貼筆記本(上開)",
-                "便利貼筆記本(側開)",
-                "便利貼筆記本(側開)"
+            var prizes = [
+                { name: "生活品味墨寶 (筆)", probability: 22 },
+                { name: "生活智慧大手冊 (側開式)", probability: 22 },
+                { name: "生活美學小筆記 (上開式)", probability: 22 },
+                { name: "大自然使者收納袋 (環保袋)", probability: 22 },
+                { name: "追求生活美好大禮包", probability: 12 }
             ];
-            var rand = Math.floor(Math.random() * options.length);
+
+            // Generate a random number
+            var rand = Math.random() * 100;
+            var sum = 0;
+            var prize;
+
+            for (var i = 0; i < prizes.length; i++) {
+                sum += prizes[i].probability;
+                if (rand <= sum) {
+                    prize = prizes[i].name;
+                    break;
+                }
+            }
 
             $('.js-img-shake').show();
             $('.js-img-big').hide();
@@ -99,51 +99,60 @@
             $('.js-img-noteup').hide();
             $('.js-img-noteside').hide();
             $('.js-result').text('等待開獎結果...');
-            var prize = options[rand];
-            setTimeout(function () {
 
-                if (prize == "CHC GROUP logo 筆") {
-                    $('.js-result').text(prize);
-                    $('.js-img-shake').hide();
-                    // prize
-                    $('.js-img-noteup').hide();
-                    $('.js-img-noteside').hide();
-                    $('.js-img-bag').hide();
-                    $('.js-img-pen').show();
-                    $('.js-start').hide();
-                } 
-                else if (prize == "便利貼筆記本(上開)") {
-                    $('.js-result').text(prize);
-                    $('.js-img-shake').hide();
-                    // prize
-                    $('.js-img-noteup').show();
-                    $('.js-img-noteside').hide();
-                    $('.js-img-bag').hide();
-                    $('.js-img-pen').hide();
-                    $('.js-start').hide();
-                }
-                else if (prize == "CHC LOGO 環保袋") {
-                    $('.js-result').text(prize);
-                    $('.js-img-shake').hide();
-                    // prize
-                    $('.js-img-noteup').hide();
-                    $('.js-img-noteside').hide();
-                    $('.js-img-bag').show();
-                    $('.js-img-pen').hide();
-                    $('.js-start').hide();
-                }
-                else {
-                    $('.js-result').text(prize);
-                    $('.js-img-shake').hide();
-                    // prize
-                    $('.js-img-noteup').hide();
-                    $('.js-img-noteside').show();
-                    $('.js-img-bag').hide();
-                    $('.js-img-pen').hide();
-                    $('.js-start').hide();
+            setTimeout(function () {
+                $('.js-result').text(prize);
+                $('.js-img-shake').hide();
+
+                switch (prize) {
+                    case "生活品味墨寶 (筆)":
+                        $('.js-img-pen').show();
+                        break;
+                    case "生活智慧大手冊 (側開式)":
+                        $('.js-img-noteside').show();
+                        break;
+                    case "生活美學小筆記 (上開式)":
+                        $('.js-img-noteup').show();
+                        break;
+                    case "大自然使者收納袋 (環保袋)":
+                        $('.js-img-bag').show();
+                        break;
+                    case "追求生活美好大禮包":
+                        $('.js-img-big').show();
+                        break;
                 }
             }, 1000);
         });
+        function simulateDraw() {
+            var prizes = [
+                { name: "生活品味墨寶 (筆)", probability: 22, count: 0 },
+                { name: "生活智慧大手冊 (側開式)", probability: 22, count: 0 },
+                { name: "生活美學小筆記 (上開式)", probability: 22, count: 0 },
+                { name: "大自然使者收納袋 (環保袋)", probability: 22, count: 0 },
+                { name: "追求生活美好大禮包", probability: 12, count: 0 }
+            ];
+        
+            // Total number of simulations
+            var totalSimulations = 100;
+        
+            for (var i = 0; i < totalSimulations; i++) {
+                var rand = Math.random() * 100;
+                var sum = 0;
+                for (var j = 0; j < prizes.length; j++) {
+                    sum += prizes[j].probability;
+                    if (rand <= sum) {
+                        prizes[j].count++;
+                        break;
+                    }
+                }
+            }
+        
+            // Output results
+            console.log("Simulation results over " + totalSimulations + " draws:");
+            prizes.forEach(function(prize) {
+                console.log(prize.name + ": " + prize.count + " (" + (prize.count / totalSimulations * 100).toFixed(2) + "%)");
+            });
+        }
     </script>
 
 </body>
