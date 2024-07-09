@@ -1,0 +1,830 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>遊戲設計</title>
+    <!-- <link rel="stylesheet" href="styles.css"> -->
+    <!-- <link rel="stylesheet" type="text/css" href="vendors/styles/core.css"> -->
+    <!-- <link rel="stylesheet" type="text/css" href="vendors/styles/icon-font.min.css"> -->
+    <!-- <link rel="stylesheet" type="text/css" href="vendors/styles/style.css"> -->
+</head>
+<link href="/css/awselect.css" rel="stylesheet">
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="/js/awselect.js"></script>
+<script>
+    let character = '';
+    let jobStatus = '';
+    let pro = '';
+    let appeal = [];
+    let imageSrc = '';
+
+    function toggleOtherInput(checkbox) {
+        const otherInput = document.getElementById('other-input');
+        if (checkbox.checked) {
+            otherInput.style.display = 'block';
+        } else {
+            otherInput.style.display = 'none';
+        }
+    }
+
+    function startGame() {
+        transitionPage('game-home', 'character-selection');
+    }
+
+    function previewCharacter(selectedCharacter) {
+        character = selectedCharacter;
+        const characterPreview = document.getElementById('character-preview');
+        const characterSubmit = document.getElementById('character-submit');
+
+        //let imageSrc = '';
+        if (selectedCharacter === '開拓者') {
+            imageSrc = 'baby2.png';
+        } else if (selectedCharacter === '守護者') {
+            imageSrc = 'baby1.png';
+        }
+
+        characterPreview.innerHTML = `<img src="${imageSrc}" alt="${selectedCharacter}" style="max-width: 100%; height: auto;" class="pixelate">`;
+        characterSubmit.style.display = 'inline-block';
+    }
+
+    function submitCharacter() {
+        transitionPage('character-selection', 'job-status-selection');
+    }
+
+    function selectJobStatus(selectedJobStatus) {
+        jobStatus = selectedJobStatus;
+        transitionPage('job-status-selection', 'question-section');
+    }
+
+    function answerDropdownQuestion(questionNumber) {
+        const select = document.getElementById(`question-${questionNumber}-select`);
+        pro = select.value;
+        let eq = '';
+
+        if (questionNumber = 1) {
+            eq = "無邊際泳池";
+        } else if (questionNumber = 2) {
+            eq = "桑拿三溫暖";
+        } else {
+            eq = "宴會廳";
+        }
+
+
+        showPopup(`獲得的設施： 無邊際泳池`, 'swim.png');
+        if (questionNumber < 3) {
+            setTimeout(() => {
+                transitionPage(`question-${questionNumber}`, `question-${questionNumber + 1}`);
+            }, 1500);
+        } else {
+            setTimeout(() => {
+                transitionPage(`question-${questionNumber}`, 'result-section', showResult);
+            }, 1500);
+        }
+    }
+
+    /*function answerCheckboxQuestion(questionNumber) {
+        const checkboxes = document.querySelectorAll(`input[name="question-${questionNumber}-options"]:checked`);
+        if (checkboxes.length !== 2) {
+            document.getElementById(`question-${questionNumber}-error`).style.display = 'block';
+            return;
+        }
+        document.getElementById(`question-${questionNumber}-error`).style.display = 'none';
+        const answers = Array.from(checkboxes).map(checkbox => checkbox.value).join(', ');
+        showPopup(`獲得的設施：設施 ${questionNumber}`);
+        setTimeout(() => {
+            transitionPage(`question-${questionNumber}`, `question-${questionNumber + 1}`);
+        }, 1500);
+    }*/
+
+    function answerQuestion(questionNumber, answer) {
+        showPopup(`獲得的設施：設施 ${questionNumber}`);
+        if (questionNumber < 3) {
+            setTimeout(() => {
+                transitionPage(`question-${questionNumber}`, `question-${questionNumber + 1}`);
+            }, 1500);
+        } else {
+            setTimeout(() => {
+                transitionPage(`question-${questionNumber}`, 'result-section', showResult);
+            }, 1500);
+        }
+    }
+
+    function showResult() {
+        const resultSection = document.getElementById('result-section');
+        const selectedOptionsadj = [];
+        const selectedOptionsapp = [];
+        const selectedPros = "";
+
+        const options = document.querySelectorAll(`input[name="question-${2}-options"]:checked`);
+        options.forEach(option => selectedOptionsadj.push(option.value));
+
+        const options1 = document.querySelectorAll(`input[name="question-${3}-options"]:checked`);
+        options1.forEach(option => selectedOptionsapp.push(option.value));
+
+        for (let i = 0; i < selectedOptionsapp.length; i++) {
+            if (selectedOptionsapp[i] === "其他") {
+                selectedOptionsapp[i] = document.getElementById('other-input').value;
+            }
+        }
+
+        const email = document.getElementById('email').value;
+        const phone = document.getElementById('phone').value;
+        const name = document.getElementById('name').value;
+
+        //<img src="${imageSrc}" style="max-width: 100px; height: auto;" class="pixelate">
+        resultSection.innerHTML = `
+            <h2>結果</h2>
+            <p>角色: ${character}</p>
+            <p>工作狀態: ${jobStatus}</p>
+            <p>專業: ${pro}</p>
+            <p>最符合您的兩個形容詞： ${selectedOptionsadj.join('、')}</p>
+            <p>嘉新企業團最吸引您的措施： ${selectedOptionsapp.join('、')}</p>
+            ${name ? `<p>姓名: ${name}</p>` : ''}
+            ${email ? `<p>電子郵件: ${email}</p>` : ''}
+            ${phone ? `<p>電話: ${phone}</p>` : ''}
+            <img src="hotel.png" style="max-width: 100%; height: auto;" class="pixelate">
+        `;
+    }
+
+    function transitionPage(hideId, showId, callback) {
+        const hideElement = document.getElementById(hideId);
+        const showElement = document.getElementById(showId);
+
+        hideElement.classList.add('fade-out');
+        hideElement.classList.remove('fade-in');
+        setTimeout(() => {
+            hideElement.style.display = 'none';
+            showElement.style.display = 'block';
+            showElement.classList.add('fade-in');
+            showElement.classList.remove('fade-out');
+            if (callback) callback();
+        }, 500);
+    }
+
+    function showPopup(message, isrc) {
+        const popup = document.getElementById('popup');
+        const popupContent = document.getElementById('popup-content');
+
+        popupContent.innerText = message;
+        popupContent.innerHTML = `
+            <p>${message}</p>
+            <img src="${isrc}" style="max-width: 200px; height: auto;" class="pixelate">
+        `;
+        popup.style.display = 'block';
+        popup.classList.add('jelly');
+
+        setTimeout(() => {
+            popup.style.display = 'none';
+            popup.classList.remove('jelly');
+        }, 1500);
+    }
+
+    function answerCheckboxQuestion(questionNumber) {
+        const checkboxes = document.querySelectorAll(`input[name="question-${questionNumber}-options"]:checked`);
+        const errorElement = document.getElementById(`question-${questionNumber}-error`);
+
+        if (checkboxes.length !== 2) {
+            errorElement.style.display = 'block';
+            errorElement.classList.add('popup-bounce-in');
+
+            // 移除动画类，以便下次显示时重新应用动画
+            setTimeout(() => {
+                errorElement.classList.remove('popup-bounce-in');
+            }, 500);
+            return;
+        }
+
+        errorElement.style.display = 'none';
+        const answers = Array.from(checkboxes).map(checkbox => checkbox.value).join(', ');
+        showPopup(`獲得的設施：桑拿三溫暖`, 'warm.png');
+        setTimeout(() => {
+            transitionPage(`question-${questionNumber}`, `question-${questionNumber + 1}`);
+        }, 1500);
+    }
+
+    function answerCheckboxQuestions(questionNumber, maxSelections) {
+        const checkboxes = document.querySelectorAll(`input[name="question-${questionNumber}-options"]:checked`);
+        const errorElement = document.getElementById(`question-${questionNumber}-error`);
+
+        if (checkboxes.length > maxSelections) {
+            errorElement.innerText = `請選擇最多 ${maxSelections} 項`;
+            errorElement.style.display = 'block';
+            errorElement.classList.add('popup-bounce-in');
+
+            // 移除动画类，以便下次显示时重新应用动画
+            setTimeout(() => {
+                errorElement.classList.remove('popup-bounce-in');
+            }, 500);
+            return;
+        }
+
+        if (checkboxes.length < 1) {
+            errorElement.innerText = `請至少選擇一選項`;
+            errorElement.style.display = 'block';
+            errorElement.classList.add('popup-bounce-in');
+
+            // 移除动画类，以便下次显示时重新应用动画
+            setTimeout(() => {
+                errorElement.classList.remove('popup-bounce-in');
+            }, 500);
+            return;
+        }
+
+        errorElement.style.display = 'none';
+        appeal = Array.from(checkboxes).map(checkbox => checkbox.value).join(', ');
+
+        /*if (document.getElementById('other-checkbox').checked) {
+            const otherValue = document.getElementById('other-input').value;
+            if (otherValue) {
+                answers += `, ${otherValue}`;
+            }
+        }*/
+
+        for (let i = 0; i < appeal.length; i++) {
+            if (appeal[i] === "其他") {
+                appeal[i] = document.getElementById('other-input').value;
+            }
+        }
+
+        showPopup(`獲得的設施：宴會廳`, 'lobby2.png');
+        if (questionNumber < 3) {
+            setTimeout(() => {
+                transitionPage(`question-${questionNumber}`, `question-${questionNumber + 1}`);
+            }, 1500);
+        } else {
+            setTimeout(() => {
+                transitionPage(`question-${questionNumber}`, 'question-4');
+            }, 1500);
+        }
+    }
+
+    function selectComStatus(selectedComStatus) {
+        const comStatus = selectedComStatus;
+        if (!comStatus) {
+            alert('請選擇是否願意留下聯絡資料');
+            return;
+        }
+
+        if (comStatus === '是') {
+            document.getElementById('contact-info').style.display = 'block';
+        } else {
+            showResult();
+            transitionPage('question-4', 'result-section', showResult);
+        }
+    }
+
+    function submitCom() {
+        showResult();
+        transitionPage('question-4', 'result-section', showResult);
+    }
+
+    document.getElementById('contact-info').addEventListener('submit', function (event) {
+        event.preventDefault();
+        showResult();
+        transitionPage('question-4', 'result-section');
+    });
+</script>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 20px;
+        background-color: #f0f0f0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        overflow: hidden;
+    }
+
+    .container {
+        width: 600px;
+        text-align: center;
+        background-color: #ffffff;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        position: relative;
+    }
+
+    h2 {
+        color: #333;
+        margin-bottom: 20px;
+    }
+
+    button {
+        margin: 10px;
+        padding: 10px 20px;
+        font-size: 16px;
+        cursor: pointer;
+        background-color: #007BFF;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        transition: background-color 0.3s;
+    }
+
+    button:hover {
+        background-color: #0056b3;
+    }
+
+    /* 自適應設計 */
+    @media (max-width: 600px) {
+        body {
+            padding: 10px;
+        }
+
+        .container {
+            width: 100%;
+        }
+
+        button {
+            width: 100%;
+            margin: 10px 0;
+        }
+    }
+
+    /* 淡入淡出動畫 */
+    .fade-out {
+        animation: fadeOut 0.5s forwards;
+    }
+
+    .fade-in {
+        animation: fadeIn 0.5s forwards;
+    }
+
+    @keyframes fadeOut {
+        from {
+            opacity: 1;
+        }
+
+        to {
+            opacity: 0;
+        }
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+
+        to {
+            opacity: 1;
+        }
+    }
+
+    /* 果凍跳躍動畫 */
+    .jelly {
+        animation: jelly 0.8s forwards;
+    }
+
+    @keyframes jelly {
+
+        from,
+        11.1%,
+        to {
+            transform: scale3d(1, 1, 1);
+        }
+
+        22.2% {
+            transform: scale3d(0.8, 1.25, 1);
+        }
+
+        33.3% {
+            transform: scale3d(1.25, 0.75, 1);
+        }
+
+        44.4% {
+            transform: scale3d(0.75, 1.15, 1);
+        }
+
+        55.5% {
+            transform: scale3d(1.15, 0.85, 1);
+        }
+
+        66.6% {
+            transform: scale3d(0.95, 1.05, 1);
+        }
+
+        77.7% {
+            transform: scale3d(1.05, 0.95, 1);
+        }
+
+        88.8% {
+            transform: scale3d(1.02, 0.98, 1);
+        }
+    }
+
+    /* Popup樣式 */
+    #popup {
+        position: absolute;
+        top: calc(100% + 20px);
+        left: -3%;
+        transform: translateX(-50%);
+        width: 100%;
+        background-color: #ffffff;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        z-index: 1000;
+    }
+
+    #popup-content {
+        font-size: 18px;
+        color: #333;
+    }
+
+    /* 下拉式選單動畫 */
+    select {
+        width: 200px;
+        height: 40px;
+        font-size: 16px;
+        padding: 5px;
+    }
+
+    select option {
+        height: 30px;
+    }
+
+    @keyframes pixelate {
+        0% {
+            filter: opacity(0) blur(5px);
+            transform: scale(0.98);
+        }
+
+        100% {
+            filter: opacity(1) blur(0);
+            transform: scale(1);
+        }
+    }
+
+    .pixelate {
+        animation: pixelate 1s forwards;
+    }
+
+    .checkbox-container {
+        display: flex;
+        align-items: center;
+        margin: 10px 0;
+        cursor: pointer;
+        user-select: none;
+        padding-right: 10px;
+    }
+
+    .checkbox-container input {
+        display: none;
+    }
+
+    .checkbox-container .checkmark {
+        width: 25px;
+        height: 25px;
+        background-color: #eee;
+        border: 2px solid #ddd;
+        border-radius: 5px;
+        margin-right: 15px;
+        transition: background-color 0.3s, border-color 0.3s;
+    }
+
+    .checkbox-container input:checked+.checkmark {
+        background-color: #007BFF;
+        border-color: #007BFF;
+    }
+
+    .checkbox-container input:checked+.checkmark:after {
+        content: '';
+        position: absolute;
+        display: block;
+        width: 9px;
+        height: 14px;
+        border: solid white;
+        border-width: 0 3px 3px 0;
+        transform: rotate(45deg);
+        top: 3px;
+        left: 8px;
+    }
+
+    .checkbox-container .checkmark {
+        position: relative;
+    }
+
+    /* 点击动画 */
+    .checkbox-container input:checked+.checkmark {
+        animation: checkmarkAnimation 0.4s ease;
+    }
+
+    @keyframes checkmarkAnimation {
+        0% {
+            transform: scale(0.8);
+        }
+
+        50% {
+            transform: scale(1.2);
+        }
+
+        100% {
+            transform: scale(1);
+        }
+    }
+
+    @keyframes popupBounceIn {
+        0% {
+            transform: scale(0.5);
+            opacity: 0;
+        }
+
+        50% {
+            transform: scale(1.1);
+            opacity: 1;
+        }
+
+        100% {
+            transform: scale(1);
+        }
+    }
+
+    .popup-bounce-in {
+        animation: popupBounceIn 0.5s forwards;
+    }
+
+    .checkbox-container {
+        display: flex;
+        align-items: center;
+        margin: 10px 0;
+        cursor: pointer;
+        user-select: none;
+        padding-right: 10px;
+        width: 45%;
+        /* 调整宽度以适应每行两个选项 */
+        justify-content: space-between;
+        /* 添加此行 */
+    }
+
+    .checkbox-container .checkmark {
+        width: 25px;
+        height: 25px;
+        background-color: #eee;
+        border: 2px solid #ddd;
+        border-radius: 5px;
+        transition: background-color 0.3s, border-color 0.3s;
+    }
+
+    /* 添加容器样式以并排显示 */
+    .checkbox-group {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+
+    .question-page {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+    }
+
+    /* 按钮容器样式，确保按钮排列一致 */
+    .button-container {
+        display: flex;
+        gap: 10px;
+    }
+
+    .radio-container {
+        display: flex;
+        align-items: center;
+        margin: 10px 0;
+        cursor: pointer;
+        user-select: none;
+        padding-right: 10px;
+        width: 45%;
+        justify-content: space-between;
+    }
+
+    .radio-checkmark {
+        width: 25px;
+        height: 25px;
+        background-color: #eee;
+        border: 2px solid #ddd;
+        border-radius: 50%;
+        transition: background-color 0.3s, border-color 0.3s;
+    }
+
+    .radio-container input[type="radio"]:checked+.radio-checkmark {
+        background-color: #2196F3;
+        border-color: #2196F3;
+    }
+
+    #result-section {
+        text-align: left;
+        padding: 20px;
+        background-color: #f9f9f9;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        margin-top: 20px;
+    }
+
+    .other-input {
+        display: none;
+        width: 100%;
+        height: 50px;
+        margin-top: 10px;
+        font-size: large;
+    }
+</style>
+
+<body>
+    <div class="container">
+        <div id="game-home">
+            <h2>歡迎你的到來</h2>
+            <button onclick="startGame()">開始！</button>
+        </div>
+
+        <div id="character-selection" style="display:none;">
+            <h2>選擇身分</h2>
+            <button onclick="previewCharacter('開拓者')">開拓者</button>
+            <button onclick="previewCharacter('守護者')">守護者</button>
+            <div id="character-preview" style="margin-top: 20px;"></div>
+            <button id="character-submit" style="display:none;" onclick="submitCharacter()">提交</button>
+        </div>
+
+        <div id="job-status-selection" style="display:none;">
+            <h2>選擇狀態</h2>
+            <button onclick="selectJobStatus('在學中')">在學中</button>
+            <button onclick="selectJobStatus('就業中')">就業中</button>
+            <button onclick="selectJobStatus('待業中')">待業中</button>
+        </div>
+
+        <div id="question-section" style="display:none;">
+            <div id="question-1">
+                <!-- <h2>答題區</h2> -->
+                <p>你的專業是．．．</p>
+                <select id="question-1-select">
+                    <!-- <option value="請選擇學群" selected>請選擇學群</option> -->
+                    <option value="資訊學群" selected>資訊學群</option>
+                    <option value="工程學群">工程學群</option>
+                    <option value="數理化學群">數理化學群</option>
+                    <option value="醫藥衛生學群">醫藥衛生學群</option>
+                    <option value="生命科學學群">生命科學學群</option>
+                    <option value="生物資源學群">生物資源學群</option>
+                    <option value="地球環境學群">地球環境學群</option>
+                    <option value="建築設計學群">建築設計學群</option>
+                    <option value="藝術學群">藝術學群</option>
+                    <option value="社會心理學群">社會心理學群</option>
+                    <option value="大眾傳播學群">大眾傳播學群</option>
+                    <option value="外語學群">外語學群</option>
+                    <option value="文史哲學群">文史哲學群</option>
+                    <option value="教育學群">教育學群</option>
+                    <option value="法政學群">法政學群</option>
+                    <option value="管理學群">管理學群</option>
+                    <option value="財經學群">財經學群</option>
+                    <option value="遊憩運動學群">遊憩運動學群</option>
+                    <option value="其他">其他</option>
+                </select>
+                <button onclick="answerDropdownQuestion(1)">提交</button>
+            </div>
+            <div id="question-2" style="display:none;">
+                <!-- <h2>答題區</h2> -->
+                <p>請選擇兩個最適合您的形容詞！</p>
+                <div class="checkbox-group">
+                    <label class="checkbox-container">
+                        細心慎重
+                        <input type="checkbox" name="question-2-options" value="細心慎重">
+                        <span class="checkmark"></span>
+                    </label>
+                    <label class="checkbox-container">
+                        求新求變
+                        <input type="checkbox" name="question-2-options" value="求新求變">
+                        <span class="checkmark"></span>
+                    </label>
+                    <label class="checkbox-container">
+                        樂於溝通
+                        <input type="checkbox" name="question-2-options" value="樂於溝通">
+                        <span class="checkmark"></span>
+                    </label>
+                    <label class="checkbox-container">
+                        邏輯力強
+                        <input type="checkbox" name="question-2-options" value="邏輯力強">
+                        <span class="checkmark"></span>
+                    </label>
+                    <label class="checkbox-container">
+                        敏銳度高
+                        <input type="checkbox" name="question-2-options" value="敏銳度高">
+                        <span class="checkmark"></span>
+                    </label>
+                    <label class="checkbox-container">
+                        理性思考
+                        <input type="checkbox" name="question-2-options" value="理性思考">
+                        <span class="checkmark"></span>
+                    </label>
+                    <label class="checkbox-container">
+                        按部就班
+                        <input type="checkbox" name="question-2-options" value="按部就班">
+                        <span class="checkmark"></span>
+                    </label>
+                    <label class="checkbox-container">
+                        主動積極
+                        <input type="checkbox" name="question-2-options" value="主動積極">
+                        <span class="checkmark"></span>
+                    </label>
+                </div>
+                <div id="question-2-error" style="color:red; display:none;">請選擇兩項</div>
+                <button onclick="answerCheckboxQuestion(2)">提交</button>
+            </div>
+            <div id="question-3" style="display:none;">
+                <!-- <h2>答題區</h2> -->
+                <p>嘉新企業團哪項福利措施最吸引您(最多三項)...？</p>
+                <div class="checkbox-group">
+                    <label class="checkbox-container">
+                        員工持股信託提撥100%獎勵金
+                        <input type="checkbox" name="question-3-options" value="員工持股信託提撥100%獎勵金">
+                        <span class="checkmark"></span>
+                    </label>
+                    <label class="checkbox-container">
+                        彈性工時
+                        <input type="checkbox" name="question-3-options" value="彈性工時">
+                        <span class="checkmark"></span>
+                    </label>
+                    <label class="checkbox-container">
+                        遠距辦公
+                        <input type="checkbox" name="question-3-options" value="遠距辦公">
+                        <span class="checkmark"></span>
+                    </label>
+                    <label class="checkbox-container">
+                        補班日不打卡
+                        <input type="checkbox" name="question-3-options" value="補班日不打卡">
+                        <span class="checkmark"></span>
+                    </label>
+                    <label class="checkbox-container">
+                        午休1.5小時
+                        <input type="checkbox" name="question-3-options" value="午休1.5小時">
+                        <span class="checkmark"></span>
+                    </label>
+                    <label class="checkbox-container">
+                        免費健身房
+                        <input type="checkbox" name="question-3-options" value="免費健身房">
+                        <span class="checkmark"></span>
+                    </label>
+                    <label class="checkbox-container">
+                        節慶活動
+                        <input type="checkbox" name="question-3-options" value="節慶活動">
+                        <span class="checkmark"></span>
+                    </label>
+                    <label class="checkbox-container">
+                        多元假勤
+                        <input type="checkbox" name="question-3-options" value="多元假勤">
+                        <span class="checkmark"></span>
+                    </label>
+                    <label class="checkbox-container">
+                        生日假/生日禮
+                        <input type="checkbox" name="question-3-options" value="生日假/生日禮">
+                        <span class="checkmark"></span>
+                    </label>
+                    <label class="checkbox-container">
+                        其他
+                        <input type="checkbox" name="question-3-options" value="其他" id="other-checkbox"
+                            onchange="toggleOtherInput(this)">
+                        <span class="checkmark"></span>
+                        <!-- <input type="text" id="other-input" class="other-input" placeholder="請輸入其他選項"> -->
+                    </label>
+                </div>
+                <input type="text" id="other-input" class="other-input" placeholder="請輸入其他選項">
+                <div id="question-3-error" style="color:red; display:none;">請選擇最多三項</div>
+                <button onclick="answerCheckboxQuestions(3, 3)">提交</button>
+            </div>
+            <div id="question-4" style="display:none;">
+                <p>是否願意留下聯絡資料？</p>
+                <button onclick="selectComStatus('是')">是</button>
+                <button onclick="selectComStatus('否')">否</button>
+                <div id="contact-info" style="display:none;">
+                    <label>
+                        姓名:
+                        <input type="name" id="name">
+                    </label>
+                    <br><br>
+                    <label>
+                        電子郵件:
+                        <input type="email" id="email">
+                    </label>
+                    <br><br>
+                    <label>
+                        電話:
+                        <input type="tel" id="phone">
+                    </label>
+                    <br><br>
+                    <button onclick="submitCom()">提交</button>
+                </div>
+
+            </div>
+        </div>
+
+        <div id="result-section" style="display:none;"></div>
+
+        <div id="popup" style="display:none;">
+            <div id="popup-content"></div>
+        </div>
+    </div>
+
+    <script src="scripts.js"></script>
+</body>
+
+</html>
