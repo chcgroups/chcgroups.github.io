@@ -248,20 +248,6 @@
         }
     }
 
-    /*function answerCheckboxQuestion(questionNumber) {
-        const checkboxes = document.querySelectorAll(`input[name="question-${questionNumber}-options"]:checked`);
-        if (checkboxes.length !== 2) {
-            document.getElementById(`question-${questionNumber}-error`).style.display = 'block';
-            return;
-        }
-        document.getElementById(`question-${questionNumber}-error`).style.display = 'none';
-        const answers = Array.from(checkboxes).map(checkbox => checkbox.value).join(', ');
-        showPopup(`獲得的設施：設施 ${questionNumber}`);
-        setTimeout(() => {
-            transitionPage(`question-${questionNumber}`, `question-${questionNumber + 1}`);
-        }, 1500);
-    }*/
-
     function answerQuestion(questionNumber, answer) {
         showPopup(`獲得的設施：設施 ${questionNumber}`);
         if (questionNumber < 3) {
@@ -296,22 +282,6 @@
         const email = document.getElementById('email').value;
         const phone = document.getElementById('phone').value;
         const name = document.getElementById('name').value;
-
-        //<img src="${imageSrc}" style="max-width: 100px; height: auto;" class="pixelate">
-        /*
-        resultSection.innerHTML = `
-            <h2>結果</h2>
-            <p>角色: ${character}</p>
-            <p>工作狀態: ${jobStatus}</p>
-            <p>專業: ${pro}</p>
-            <p>最符合您的兩個形容詞： ${selectedOptionsadj.join('、')}</p>
-            <p>嘉新企業團最吸引您的措施： ${selectedOptionsapp.join('、')}</p>
-            ${name ? `<p>姓名: ${name}</p>` : ''}
-            ${email ? `<p>電子郵件: ${email}</p>` : ''}
-            ${phone ? `<p>電話: ${phone}</p>` : ''}
-            <div class="pic"><a href="https://hotelcollective.jp/tc/" style="cursor: url(/link.cur), auto;" target="_blank"><img src="hotel.png" style="max-width: 100%; height: auto;"></a></div>
-        `;
-        */
 
         var n = new Date();
         var y = n.getFullYear();
