@@ -366,15 +366,17 @@
         var field4 = jobStatus;
         var field5 = pro;
         var field6 = selectedOptionsadj.join('、');
+        var field7 = selectedOptionsapp.join('、');
         $.ajax({
             url: "https://docs.google.com/forms/u/0/d/e/1FAIpQLSfaZNclJs61dghM31BS-5s3USIsZs8Y8KqMGpkhMAix0qp54Q/formResponse", //Google Form 裡面的 form action 網址 ＊＊記得要填＊＊
             data: { //Google Form 裡面的欄位 name ＊＊記得要改＊＊
-                "entry.1178535561": field1,
-                "entry.1443469587": field2,
-                "entry.1033154302": field3,
-                "entry.1186009493": field4,
-                "entry.1268965098": field5,
-                "entry.1079794884": field6
+                "entry.1079794884": field1,
+                "entry.1178535561": field2,
+                "entry.1443469587": field3,
+                "entry.1033154302": field4,
+                "entry.1186009493": field5,
+                "entry.1268965098": field6,
+                "entry.1193804451": field7
             },
             type: "POST",
             dataType: "xml"
