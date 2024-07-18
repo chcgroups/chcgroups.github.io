@@ -338,8 +338,8 @@
         var field6 = selectedOptionsadj.join('、');
         var field7 = selectedOptionsapp.join('、');
         $.ajax({
-            url: "https://docs.google.com/forms/u/0/d/e/1FAIpQLSfaZNclJs61dghM31BS-5s3USIsZs8Y8KqMGpkhMAix0qp54Q/formResponse", //Google Form 裡面的 form action 網址 ＊＊記得要填＊＊
-            data: { //Google Form 裡面的欄位 name ＊＊記得要改＊＊
+            url: "https://docs.google.com/forms/u/0/d/e/1FAIpQLSfaZNclJs61dghM31BS-5s3USIsZs8Y8KqMGpkhMAix0qp54Q/formResponse",
+            data: { 
                 "entry.1079794884": field6,
                 "entry.1178535561": field1,
                 "entry.1443469587": field2,
@@ -349,7 +349,16 @@
                 "entry.1193804451": field7
             },
             type: "POST",
-            dataType: "xml"
+            dataType: "xml",
+            statusCode: {
+     0: function() {
+      alert("已送出!");
+      
+     },
+     200: function() {
+      alert("已送出!"); 
+     }
+    }
         });
     }
 
