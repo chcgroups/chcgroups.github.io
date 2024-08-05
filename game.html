@@ -377,19 +377,41 @@
             }
         }
 
-        const email = document.getElementById('email').value;
-        const phone = document.getElementById('phone').value;
-        const name = document.getElementById('name').value;
+        const uemail = document.getElementById('email').value;
+        const uphone = document.getElementById('phone').value;
+        const uname = document.getElementById('name').value;
 
-        var field1 = name;
-        var field2 = email;
-        var field3 = phone;
+        var field1 = uname;
+        var field2 = uemail;
+        var field3 = uphone;
         var field4 = jobStatus;
         var field5 = pro;
         var field6 = selectedOptionsadj.join('、');
         var field7 = selectedOptionsapp.join('、');
+
+        const fdata = {
+            name : field1,
+            email : field2,
+            phone : field3,
+            sta : field4,
+            pro : field5,
+            tab : field6,
+            tap : field7
+
+        };
+            
+
+        fetch('https://prod2-03.southeastasia.logic.azure.com:443/workflows/ebc113c597434f17850973df67e6d80a/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=WILuT2FrVqKfPyzMGqLgqqUBmx3av2Bqy-pfm828Zs8',
+            {
+                method : 'POST',
+                headers : {
+                    "Content-Type" : "application/json"
+                },
+                body : JSON.stringify(fdata)
+            }
+        )
         
-        window.open('https://apps.powerapps.com/play/e/4d47ef3a-6c35-e8f8-87b4-feafdf1ade9c/a/1c409c86-a3ac-4b43-9859-f179d2cad1ff?tenantId=9740e704-d463-4e6f-ada8-cb9ef91f129a&hint=47fdaace-26fb-49a6-8648-24f32ac216a3&sourcetime=1722747529667?&hidenavbar=true&name='+field1+'&email='+field2+'&phone='+field3+'&sta='+field4+'&pro='+field5+'&tab='+field6+'&tap='+field7, '_blank');
+        // window.open('https://apps.powerapps.com/play/e/4d47ef3a-6c35-e8f8-87b4-feafdf1ade9c/a/1c409c86-a3ac-4b43-9859-f179d2cad1ff?tenantId=9740e704-d463-4e6f-ada8-cb9ef91f129a&hint=47fdaace-26fb-49a6-8648-24f32ac216a3&sourcetime=1722747529667?&hidenavbar=true&name='+field1+'&email='+field2+'&phone='+field3+'&sta='+field4+'&pro='+field5+'&tab='+field6+'&tap='+field7, '_blank');
     }
 
     function transitionPage(hideId, showId, callback) {
