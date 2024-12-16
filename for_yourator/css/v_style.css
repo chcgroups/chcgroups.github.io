@@ -1,0 +1,197 @@
+@import url("https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=LXGW+WenKai+Mono+TC&family=Poppins:wght@300;400;500;600&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Ubuntu+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Yusei+Magic&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  outline: none;
+  text-decoration: none;
+  box-sizing: border-box;
+}
+
+@keyframes bounce {
+  0%,
+  100% {
+    transform: translateY(-3px);
+  }
+  50% {
+    transform: translateY(5px);
+  }
+}
+
+@keyframes eachbounce {
+  to {
+    transform: translateY(-5px);
+  }
+}
+
+@keyframes zoomInOut {
+  0% {
+    transform: scale(1.2);
+  }
+  50% {
+    transform: scale(1.5);
+  }
+  100% {
+    transform: scale(1.2);
+  }
+}
+
+@keyframes tilt-n-move-shaking {
+  0% {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  25% {
+    transform: translate(-50%, -50%) rotate(5deg);
+  }
+  50% {
+    transform: translate(-50%, -50%) rotate(0eg);
+  }
+  75% {
+    transform: translate(-50%, -50%) rotate(-5deg);
+  }
+  100% {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+}
+
+@keyframes fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+body {
+  overflow: hidden;
+  line-height: 1.5;
+  font-size: 16px;
+  font-family: "Ubuntu Mono", "Yusei Magic", sans-serif;
+  min-height: 100vh;
+  background: url("https://raw.githubusercontent.com/samlichhan/about-me/refs/heads/main/images/bg2.png")
+    no-repeat center center / cover;
+}
+
+.title-text {
+  transform: translate(-48%, -50%) scale(0.6);
+  left: 50%;
+  align-items: center;
+  text-align: center;
+  position: fixed;
+  top: 15%;
+}
+
+.title-text img {
+  animation: bounce 0.3s infinite;
+}
+
+.comp-title {
+  position: fixed;
+  top: 38%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.8);
+  object-fit: cover;
+  transition: top 1.2s ease;
+}
+
+.comp-title img {
+  object-fit: cover;
+  animation: zoomInOut 5s infinite ease-in-out;
+}
+
+.hint-text .gift-hint {
+  width: 100%;
+  text-align: center;
+  position: fixed;
+  font-size: 40px;
+  color: rgb(87, 84, 84);
+  bottom: 10%;
+  cursor: default;
+  -webkit-animation: bounce 4s infinite;
+}
+
+.hint-text .hire-me a {
+  width: 100%;
+  text-align: center;
+  position: fixed;
+  font-size: 18px;
+  /* color: rgb(87, 84, 84); */
+  bottom: 8%;
+  -webkit-animation: bounce 6s infinite;
+  background: linear-gradient(to right, #2521f3, #ff6b08, #cf23cf, #eedd44);
+  -webkit-text-fill-color: transparent;
+  -webkit-background-clip: text;
+}
+
+.gift {
+  /* width: 80%; */
+  transform: translate(-50%, -50%);
+  left: 50%;
+  text-align: center;
+  position: fixed;
+  font-size: 100px;
+  color: rgb(87, 84, 84);
+  bottom: 10%;
+  cursor: default;
+  animation: tilt-n-move-shaking 0.5s infinite;
+}
+
+.choosecard .xk {
+  width: 380px;
+  /* font-size: 15px; */
+  padding: 5px;
+  border-radius: 10px;
+  border: 1px solid #beb2b2;
+  background-color: white;
+  box-shadow: 1px 1px 5px #333333;
+  transform: translate(-50%, -50%);
+  align-items: center;
+  text-align: center;
+  position: fixed;
+  left: 50%;
+  top: 60%;
+  animation: fade 1.5s linear 0s;
+}
+
+.choosecard .xk img {
+  /* transform: scale(0.8);  */
+  width: 90%;
+}
+
+.gift-name {
+  font-size: 24px;
+}
+
+.brand img {
+  /* width: 100%; */
+  transform: translate(-50%, -50%) scale(0.6);
+  left: 50%;
+  align-items: center;
+  text-align: center;
+  position: fixed;
+  bottom: 0px;
+}
+
+.snake-left {
+  transform: scale(0.6);
+  position: fixed;
+  bottom: 0px;
+  left: 12px;
+}
+
+.snake-left img {
+  animation: bounce 0.4s infinite;
+}
+
+.snake-right {
+  transform: scale(0.6);
+  position: fixed;
+  bottom: 0px;
+  right: 12px;
+}
+
+.snake-right img {
+  animation: bounce 0.5s infinite;
+}
