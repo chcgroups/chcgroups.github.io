@@ -21,12 +21,14 @@
     <div class="title-text">
       <a href="https://www.chcgroup.com.tw/" target="_blank"
         ><img src="./images/brand.png" class="logo"
-      /></a> <!-- 嘉新企業團 -->
+      /></a>
+      <!-- 嘉新企業團 -->
     </div>
     <div class="flower-left"></div>
     <div class="flower-right"></div>
     <div class="comp-title" id="comp">
-      <img src="./images/title.png" class="logo" /> <!-- 輔大徵才季 -->
+      <img src="./images/title.png" class="logo" />
+      <!-- 輔大徵才季 -->
     </div>
     <div class="choosecard">
       <!-- <div class="start-text">
@@ -37,10 +39,10 @@
       <!-- <img src="./images/gift1.png" alt="" id="gift1" class="g1" /> -->
       <div class="xk">
         <img src="./images/gift2_1.png" alt="" id="gift2" class="g2" />
-        <img src="./images/gift3_1.png" alt="" id="gift3" class="g3" />
-        <img src="./images/gift4_1.png" alt="" id="gift4" class="g4" />
-        <img src="./images/gift5.png" alt="" id="gift5" class="g5" />
-        <img src="./images/gift6.png" alt="" id="gift6" class="g6" />
+        <img src="./images/gift3_2.png" alt="" id="gift3" class="g3" />
+        <!-- <img src="./images/gift4_1.png" alt="" id="gift4" class="g4" /> -->
+        <!-- <img src="./images/gift5.png" alt="" id="gift5" class="g5" /> -->
+        <!-- <img src="./images/gift6.png" alt="" id="gift6" class="g6" /> -->
         <img src="./images/gift7.png" alt="" id="gift7" class="g7" />
         <img src="./images/gift8.png" alt="" id="gift8" class="g8" />
         <img src="./images/gift9_1.png" alt="" id="gift9" class="g9" />
@@ -72,25 +74,25 @@
   <script>
     var prizes = [
       // { name: "大自然使者收納袋 (環保袋)", probability: 10 }, // g1
-      { name: "70週年紀念帆布袋", probability: 0 }, // g2
-      { name: "嘉新幸運籤餅", probability: 0 }, // g3
-      { name: "嘉新想蛇麼有蛇麼紅包袋", probability: 34 }, // g4
+      { name: "特別禮_70週年帆布袋", probability: 5 }, // g2
+      { name: "CHC飲料提袋", probability: 20 }, // g3
+      // { name: "嘉新想蛇麼有蛇麼紅包袋", probability: 34 }, // g4
       // { name: "嘉新口罩", probability: 0 }, // g5
-      { name: "生活智慧大手冊 (側開式)", probability: 33 }, // g6
-      { name: "生活美學小筆記 (上開式)", probability: 33 }, // g7
-      { name: "生活品味墨寶 (筆)", probability: 0 }, // g8
-      { name: "追求生活美好大禮包", probability: 0 }, // g9
+      // { name: "生活智慧大手冊 (側開式)", probability: 33 }, // g6
+      { name: "生活美學小筆記 (上開式)", probability: 30 }, // g7
+      { name: "生活品味墨寶 (筆)", probability: 35 }, // g8
+      { name: "大禮包(三項好禮全都有)", probability: 10 }, // g9
     ];
 
     $(".hire-me").hide();
     $(".gift-name").hide();
     $(".xk").hide();
-    $(".g1").hide();
+    // $(".g1").hide();
     $(".g2").hide();
     $(".g3").hide();
-    $(".g4").hide();
-    $(".g5").hide();
-    $(".g6").hide();
+    // $(".g4").hide();
+    // $(".g5").hide();
+    // $(".g6").hide();
     $(".g7").hide();
     $(".g8").hide();
     $(".g9").hide();
@@ -138,31 +140,31 @@
           $(".gift-name").show();
 
           switch (prize) {
-            case "大自然使者收納袋 (環保袋)":
-              $(".g1").show();
-              break;
-            case "70週年紀念帆布袋":
+            // case "大自然使者收納袋 (環保袋)":
+            //   $(".g1").show();
+            //   break;
+            case "特別禮_70週年帆布袋":
               $(".g2").show();
               break;
-            case "嘉新幸運籤餅":
+            case "CHC飲料提袋":
               $(".g3").show();
               break;
-            case "嘉新想蛇麼有蛇麼紅包袋":
-              $(".g4").show();
-              break;
-            case "嘉新口罩":
-              $(".g5").show();
-              break;
-            case "生活智慧大手冊 (側開式)":
-              $(".g6").show();
-              break;
+            // case "嘉新想蛇麼有蛇麼紅包袋":
+            //   $(".g4").show();
+            //   break;
+            // case "嘉新口罩":
+            //   $(".g5").show();
+            //   break;
+            // case "生活智慧大手冊 (側開式)":
+            //   $(".g6").show();
+            //   break;
             case "生活美學小筆記 (上開式)":
               $(".g7").show();
               break;
             case "生活品味墨寶 (筆)":
               $(".g8").show();
               break;
-            case "追求生活美好大禮包":
+            case "大禮包(三項好禮全都有)":
               $(".g9").show();
               break;
           }
@@ -189,31 +191,31 @@
           $(".gift-name").show();
 
           switch (prize) {
-            case "大自然使者收納袋 (環保袋)":
-              $(".g1").show();
-              break;
-            case "70週年紀念帆布袋":
+            // case "大自然使者收納袋 (環保袋)":
+            //   $(".g1").show();
+            //   break;
+            case "特別禮_70週年帆布袋":
               $(".g2").show();
               break;
-            case "嘉新幸運籤餅":
+            case "CHC飲料提袋":
               $(".g3").show();
               break;
-            case "嘉新想蛇麼有蛇麼紅包袋":
-              $(".g4").show();
-              break;
-            case "嘉新口罩":
-              $(".g5").show();
-              break;
-            case "生活智慧大手冊 (側開式)":
-              $(".g6").show();
-              break;
+            // case "嘉新想蛇麼有蛇麼紅包袋":
+            //   $(".g4").show();
+            //   break;
+            // case "嘉新口罩":
+            //   $(".g5").show();
+            //   break;
+            // case "生活智慧大手冊 (側開式)":
+            //   $(".g6").show();
+            //   break;
             case "生活美學小筆記 (上開式)":
               $(".g7").show();
               break;
             case "生活品味墨寶 (筆)":
               $(".g8").show();
               break;
-            case "追求生活美好大禮包":
+            case "大禮包(三項好禮全都有)":
               $(".g9").show();
               break;
           }
@@ -224,14 +226,14 @@
     function simulateDraw() {
       var prizes = [
         // { name: "大自然使者收納袋 (環保袋)", probability: 10, count: 0 }, // g1
-        { name: "70週年紀念帆布袋", probability: 0, count: 0 }, // g2
-        { name: "嘉新幸運籤餅", probability: 0, count: 0 }, // g3
-        { name: "嘉新想蛇麼有蛇麼紅包袋", probability: 34, count: 0 }, // g4
+        { name: "特別禮_70週年帆布袋", probability: 5, count: 0 }, // g2
+        { name: "CHC飲料提袋", probability: 20, count: 0 }, // g3
+        // { name: "嘉新想蛇麼有蛇麼紅包袋", probability: 34, count: 0 }, // g4
         // { name: "嘉新口罩", probability: 0, count: 0 }, // g5
-        { name: "生活智慧大手冊 (側開式)", probability: 33, count: 0 }, // g6
-        { name: "生活美學小筆記 (上開式)", probability: 33, count: 0 }, // g7
-        { name: "生活品味墨寶 (筆)", probability: 0, count: 0 }, // g8
-        { name: "追求生活美好大禮包", probability: 0, count: 0 }, // g9
+        // { name: "生活智慧大手冊 (側開式)", probability: 33, count: 0 }, // g6
+        { name: "生活美學小筆記 (上開式)", probability: 30, count: 0 }, // g7
+        { name: "生活品味墨寶 (筆)", probability: 35, count: 0 }, // g8
+        { name: "大禮包(三項好禮全都有)", probability: 10, count: 0 }, // g9
       ];
 
       var totalSimulations = 10000;
